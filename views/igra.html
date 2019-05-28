@@ -1,0 +1,42 @@
+%rebase("base.html")
+%import model
+
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <table>
+      <tr>
+          <td>
+            {{igra.pravilni_del_gesla()}} <br />
+            Nepravilne crke: {{igra.nepravilni_ugibi()}}
+          </td>
+      </tr>
+      <tr>
+          <td>
+            <img src="../../img/{{igra.stevilo_napak()}}.jpg" alt="obesanje">
+          </td>
+      </tr>
+  </table>
+
+% if stanje == model.ZMAGA:
+  <h1>ČESTITKE</h1>
+  <form action="/nova_igra/" method="post">
+    <button type="submit">Nova igra</button>
+  </form>
+% elif stanje == model.PORAZ:
+  <h2>Žal si izgubil. Več sreče prihodnjič.</h2>
+  <span>Geslo je bilo <b>{{igra.geslo}}</b>.</span>
+  <form action="/nova_igra/" method="post">
+    <button type="submit">Nova igra</button>
+  </form>
+% else:
+  <form action="/igra/" method="post">
+    Črke: <input type="text" name="crka" autofocus = "true">
+    <button type="submit">Pošlji ugib</button>
+  </form>
+%end
+</body>
+
+</html>
